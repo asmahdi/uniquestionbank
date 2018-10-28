@@ -39,33 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="university" class="col-md-4 col-form-label text-md-right">{{ __('University') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="university" type="text" class="form-control{{ $errors->has('university') ? ' is-invalid' : '' }}" name="university" value="{{ old('university') }}" required autofocus>
-
-                                @if ($errors->has('university'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('university') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="department" class="col-md-4 col-form-label text-md-right">{{ __('Department') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="department" type="text" class="form-control{{ $errors->has('department') ? ' is-invalid' : '' }}" name="department" value="{{ old('department') }}" required autofocus>
-
-                                @if ($errors->has('department'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('department') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                      
 
                         <div class="form-group row">
                             <label for="registration_no" class="col-md-4 col-form-label text-md-right">{{ __('Registration No') }}</label>

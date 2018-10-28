@@ -23,8 +23,6 @@ class CreatePostTable extends Migration
             $table->string('url');
             $table->integer('uploader_id');
             $table->foreign('uploader_id')->references('id')->on('user');
-            $table->integer('category_id');
-            $table->foreign('category_id')->references('id')->on('category');
             $table->timestamps();
         });
     }

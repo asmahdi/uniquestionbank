@@ -11,12 +11,36 @@
 |
 */
 
-Route::get('/', function () {
-    return view('/pages/home');
-    //return "mainul";
-});
+
 
 
 Auth::routes();
 
-Route::get('/home1', 'HomeController@index')->name('home');
+
+Route::get('/', 'HomeController@index');
+
+Route::get('/select/{university_id?}/{department_id?}/{course_id?}', 'HomeController@select')->name('home');
+
+Route::get('/select/{university_id?}/{department_id?}/{course_id?}/dashboard', 'DashboardController@index');
+
+Route::get('/admin', 'AdminController@index');
+
+Route::get('/admin/university', 'AdminController@university');
+
+Route::post('/admin/adduniversity', 'AdminController@addUniversity')->name('adduniversity');
+
+Route::get('/admin/deleteuniversity/{id}', 'AdminController@deleteUniversity');
+
+Route::get('/admin/{university_id?}/department', 'AdminController@department');
+
+Route::post('/admin/{university_id?}/adddepartment', 'AdminController@addDepartment')->name('addDepartment');
+
+Route::get('/admin/deletedepartment/{id}', 'AdminController@deleteDepartment');
+
+Route::get('/admin/{university_id}/{department_id}/course', 'AdminController@course');
+
+Route::post('/admin/{university_id}/{department_id}/addcourse', 'AdminController@addCourse');
+
+Route::get('/admin/deletecourse/{id}', 'AdminController@deleteCourse');
+
+Route::post('/{university_id?}/{department_id?}/{course_id?}/dashboard/upload','DashboardController@UploadPost');

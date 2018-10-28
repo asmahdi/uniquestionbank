@@ -1,14 +1,92 @@
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import 'material.min.css';
+
+
+
+
+.navbar-brand *
+{
+  text-transform: uppercase;
+}
 
 .navbar-laravel {
-  background-color: #fff;
+  background-color: $primary;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  height: 80px;
+}
+
+.nav-menu
+{
+  background: $secondary;
+  margin-left:10px;
+  margin-right:10px;
+  color: white !important;
+  font-weight: 700;
+  border-radius: 20px;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  text-align: center;
+  text-transform: uppercase;
+  
+}
+
+.rounded-button
+{
+  background: $secondary;
+  border-radius: 20px;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  text-transform: uppercase;
+  color: white;
+}
+
+.rounded-button * 
+{
+  color: white;
+}
+.rounded-button:hover
+{
+  color: $secondary;
+  *{
+    color: $secondary;
+    }
+}
+
+
+a:hover{
+  text-decoration: none;
+}
+
+
+.mdl-card 
+{
+  border-radius: 20px !important;
+}
+
+.mdl-card__title
+{
+  background: $tertiary;
+}
+
+
+.text-line { width:100%; text-align:center;  line-height:0.1em; margin:10px 0 20px; } 
+.text-line span { 
+  background: #f8fafc;
+  padding: 0 10px;
+  z-index: 7;
+  position: relative; 
+}
+
+
+.carousel-indicators .active{
+  background-color: $secondary !important;
 }
