@@ -19,10 +19,10 @@ class AdminController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $users = DB::table('users')->orderBy('points', 'desc')->limit(10)->get();
         if($user->is_admin == 1)
-        {
-            
-            return view('pages/admin');
+        {    
+            return view('pages/admin')->with(['users' => $users]);
         }
         else {
             return redirect('/');

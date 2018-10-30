@@ -20,6 +20,7 @@ class CreatePostTable extends Migration
             $table->foreign('course_id')->references('id')->on('course');
             $table->string('description',1000);
             $table->integer('status_code');
+            $table->integer('down_vote');
             $table->string('url');
             $table->integer('uploader_id');
             $table->foreign('uploader_id')->references('id')->on('user');

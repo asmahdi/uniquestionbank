@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->integer('registration_no')->nullable();
             $table->string('contact_no')->nullable();
             $table->integer('is_admin')->default(0);
+            $table->integer('points')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
