@@ -19,7 +19,7 @@ class AdminController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $users = DB::table('users')->orderBy('points', 'desc')->limit(10)->get();
+        $users = DB::table('users')->where('points', '>', 0)->orderBy('points', 'desc')->limit(10)->get();
         if($user->is_admin == 1)
         {    
             return view('pages/admin')->with(['users' => $users]);

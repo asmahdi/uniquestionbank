@@ -14,8 +14,12 @@ class DashboardController extends Controller
 
     public function index($university_id, $department_id, $course_id)
     {
-       $posts =  DB::table('post')->where('course_id', '=', $course_id)->get();
-        return view('pages/dashboard')->with(['posts'=> $posts, 'selected_university'=>$university_id,'selected_department'=>$department_id, 'selected_course'=> $course_id]);
+        $posts =  DB::table('post')->where('course_id', '=', $course_id)->get();
+        $users = DB::table('users')->where('points', '>', 0)->orderBy('points', 'desc')->limit(10)->get();
+        $uploader_id = Auth::user()->id;
+        $uploader_posts = DB::table('post')->where('uploader_id', '=', $uploader_id)->get();
+
+        return view('pages/dashboard')->with(['users'=> $users, 'posts'=> $posts, 'uploader_posts'=> $uploader_posts, 'selected_university'=>$university_id,'selected_department'=>$department_id, 'selected_course'=> $course_id]);
     }
 
     public function UploadPost(Request $request, $university_id, $department_id, $course_id)
@@ -28,6 +32,9 @@ class DashboardController extends Controller
         $fileName = "post".time().'.'.request()->fileToUpload->getClientOriginalExtension();
 
         $request->fileToUpload->storeAs('postfiles',$fileName);
+
+        $userPoint = DB::table('users')->where('id', $uploader_id)->value('points');
+
         DB::table('post')->insert(
             [
             'title' => $request->input('title'), 
@@ -36,8 +43,12 @@ class DashboardController extends Controller
             'status_code' => 1, 
             'url' => $fileName,
             'uploader_id' => $uploader_id
+            ]
+        );
 
-
+        DB::table('users')->where('id', $uploader_id)->update(
+            [
+                'points' => $userPoint + 5,
             ]
         );
 

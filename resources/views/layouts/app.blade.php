@@ -7,6 +7,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta id="token" name="token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -75,5 +76,12 @@
             @yield('content')
         </main>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{{ asset('/js/like.js') }}"></script>
+    <script>
+      var token = '{{ Session::token() }}';
+      var urlLike = '{{ route('like') }}';
+    </script>
 </body>
 </html>

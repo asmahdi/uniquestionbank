@@ -82,7 +82,7 @@
                             <ul>
                                 <li>
                                     <div class="name">
-                                        <span class="header">{{ $user->name }}</span>
+                                        <span class="header">{{ $user->username }}</span>
                                     </div>
                                     <div class="point">
                                         <span class="stat">{{ $user->points }}</span>

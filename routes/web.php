@@ -23,6 +23,8 @@ Route::get('/select/{university_id?}/{department_id?}/{course_id?}', 'HomeContro
 
 Route::get('/select/{university_id?}/{department_id?}/{course_id?}/dashboard', 'DashboardController@index');
 
+Route::post('/like','PostController@postLikePost')->name('like');
+
 Route::get('/admin', 'AdminController@index');
 
 Route::get('/admin/university', 'AdminController@university');
