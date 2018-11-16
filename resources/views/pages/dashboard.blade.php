@@ -57,8 +57,9 @@
                         {{$post->description}}
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
-                        <a href="{{url('storage/postfiles/'.$post->url)}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect float-right">
-                        <b>View</b>
+                        <a href="{{url('/'.$selected_university.'/'.$selected_department.'/'.$selected_course.'/dashboard/download/'.$post->url)}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect float-right">
+                            {{-- {!! link_to( route('getFile', $attach->filename) . '/' . $attach->file_name, $attach->file_name) !!} --}}
+                            <b>View</b>
                         </a>
                         <div>
                             <a href="#" class="btn btn-xs btn-warning like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }} </a>  |

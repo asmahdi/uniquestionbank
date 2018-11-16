@@ -46,3 +46,6 @@ Route::post('/admin/{university_id}/{department_id}/addcourse', 'AdminController
 Route::get('/admin/deletecourse/{id}', 'AdminController@deleteCourse');
 
 Route::post('/{university_id?}/{department_id?}/{course_id?}/dashboard/upload','DashboardController@UploadPost');
+
+#route to download file
+Route::get('/{university_id?}/{department_id?}/{course_id?}/dashboard/download/{filename}', ['as' => 'getFile', 'uses' => 'DashboardController@get_file']);
