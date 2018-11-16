@@ -55,6 +55,46 @@
             {{-- col --}}
         </div>
         {{-- row --}}
+        <div class="mt-5"></div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="display-4 text-center mt-5"> Featured Posts </h2>
+                <hr>
+                @foreach ($recent_posts as $r_post)
+                    <div class="w-100 mdl-card mdl-shadow--2dp my-3">
+                        <div class="mdl-card__title mdl-card--expand">
+                            <h2 class="mdl-card__title-text">{{$r_post->title}}</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            {{$r_post->description}}
+                        </div>
+                    </div>
+                @endforeach 
+            </div>
+            <div class="col-md-4">
+                <div class="wrapper__admin_leaderboard" style="top:15vh !important; margin-top: 1 rem">
+                    <div class="wrapper__header">
+                        <div class="b_caption">
+                            <p>Leaderboard</p>
+                        </div>
+                    </div>
+                    <div class="wrapper__content">
+                        @foreach ($users->where('is_admin', '!=', 1) as $user)
+                            <ul>
+                                <li>
+                                    <div class="name">
+                                        <span class="header">{{ $user->username }}</span>
+                                    </div>
+                                    <div class="point">
+                                        <span class="stat">{{ $user->points }}</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     {{-- container --}}
 

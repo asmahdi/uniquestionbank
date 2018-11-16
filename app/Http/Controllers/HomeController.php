@@ -21,10 +21,11 @@ class HomeController extends Controller
     public function index()
     {
         $users = DB::table('users')->orderBy('points', 'desc')->limit(10)->get();
+        $recent_posts = DB::table('post')->orderBy('id', 'desc')->limit(5)->get();
         $universitY_count = DB::table('university')->count();
         $department_count = DB::table('department')->count();
         $course_count = DB::table('course')->count();
-        return view('pages/welcome')->with(['users' =>$users, 'university_count'=> $universitY_count, 'department_count'=> $department_count, 'course_count'=>$course_count]);
+        return view('pages/welcome')->with(['users' =>$users, 'recent_posts' => $recent_posts, 'university_count'=> $universitY_count, 'department_count'=> $department_count, 'course_count'=>$course_count]);
     }
 
   
