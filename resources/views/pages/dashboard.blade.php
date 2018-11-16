@@ -35,8 +35,6 @@
                             <div class="mdl-card__title mdl-card--expand  d-flex justify-content-between">
                                 <h5 class="text-muted">Upload a pdf</h5>
                                 <input type="file" class="mdl-button mdl-js-button " name="fileToUpload" id="postInputFile" aria-describedby="fileHelp">
-
-                                
                             </div>
                             
                             <div class="mdl-card__actions mdl-card--border">
@@ -58,10 +56,66 @@
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
                         <a href="{{url('/'.$selected_university.'/'.$selected_department.'/'.$selected_course.'/dashboard/download/'.$post->url)}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect float-right">
-                            {{-- {!! link_to( route('getFile', $attach->filename) . '/' . $attach->file_name, $attach->file_name) !!} --}}
                             <b>View</b>
                         </a>
-                        <div>
+
+                        
+                        @if($post->uploader_id == Auth::user()->id)
+                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect float-right">
+                                <b>It's your own file</b>
+                            </a>
+
+                        @else
+                        <form action="{{url('/'.$selected_university.'/'.$selected_department.'/'.$selected_course.'/dashboard/upload/'.$post->id.'/translation')}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading active" role="tab" id="headingOne">
+                                        <h4 class="panel-title px-2 py-3">
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Translations
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in py-3" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Username</th>
+                                                        <th scope="col">Download</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($translated_posts->where('post_id', $post->id) as $t_post)
+                                                    <tr>
+                                                        <th scope="row">{{ $t_post->id }}</th>
+                                                        <td>{{ $t_post->t_username }}</td>
+                                                        <td>
+                                                            <a href="{{url('storage/translation_postfiles/'.$t_post->url)}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect float-right">
+                                                                <b>View</b>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                            <b class="px-3">Upload Translation</b>
+                                            <input type="file" class="mdl-button mdl-js-button " name="translationFileToUpload" id="tr_postInputFile" aria-describedby="fileHelp">
+                                            <button type="submit" class="mdl-button rounded-button mdl-js-button mdl-js-ripple-effect float-right">
+                                                    <b>Submit</b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                        </form>
+
+                        @endif
+
+                        <div class="py-3 px-3">
                             <a href="#" class="btn btn-xs btn-warning like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }} </a>  |
                             <a href="#" class="btn btn-xs btn-danger like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 0 ? 'You dont like this post' : 'Dislike' : 'Dislike'  }} </a>
                         </div>

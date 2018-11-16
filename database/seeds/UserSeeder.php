@@ -34,6 +34,17 @@ class UserSeeder extends Seeder
                 'contact_no' => 123123,
                 'is_admin' => 0,
                 'points' => 0
+            ],
+            [
+                'name' => 'user2',
+                'username' => 'user002',
+                'email' => 'user2@gmail.com',
+                'password' => bcrypt('123456'),
+                'university' => 'SUST',
+                'registration_no' => 123123,
+                'contact_no' => 123123,
+                'is_admin' => 0,
+                'points' => 0
             ]
         ];
 

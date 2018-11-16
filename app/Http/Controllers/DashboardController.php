@@ -24,8 +24,19 @@ class DashboardController extends Controller
         $users = DB::table('users')->where('points', '>', 0)->orderBy('points', 'desc')->limit(10)->get();
         $uploader_id = Auth::user()->id;
         $uploader_posts = DB::table('post')->where('uploader_id', '=', $uploader_id)->get();
+        $translated_posts = DB::table('translated_posts')->get();
 
-        return view('pages/dashboard')->with(['users'=> $users, 'posts'=> $posts, 'uploader_posts'=> $uploader_posts, 'selected_university'=>$university_id,'selected_department'=>$department_id, 'selected_course'=> $course_id]);
+        return view('pages/dashboard')->with(
+            [
+                'users'=> $users, 
+                'posts'=> $posts,
+                'uploader_posts'=> $uploader_posts, 
+                'selected_university'=>$university_id,
+                'selected_department'=>$department_id, 
+                'selected_course'=> $course_id,
+                'translated_posts' => $translated_posts
+            ]
+        );
     }
 
     // public function UploadPost(Request $request, $university_id, $department_id, $course_id)
@@ -60,6 +71,35 @@ class DashboardController extends Controller
 
     //     return redirect('select/'.$university_id.'/'.$department_id.'/'.$course_id.'/dashboard');
     // }
+
+    public function UploadTranslationPost(Request $request, $university_id, $department_id, $course_id, $post_id)
+    {
+        $uploader_id = Auth::user()->id;
+        $request->validate([
+            'translationFileToUpload' => 'required|file|max:1024',
+        ]);
+
+        $fileName = "translation_post".time().'.'.request()->translationFileToUpload->getClientOriginalExtension();
+        $request->translationFileToUpload->storeAs('translation_postfiles',$fileName);
+
+        $userPoint = DB::table('users')->where('id', $uploader_id)->value('points');
+
+        DB::table('translated_posts')->insert(
+            [
+            'post_id' => $post_id,
+            'url' => $fileName,
+            'uploader_id' => $uploader_id
+            ]
+        );
+
+        DB::table('users')->where('id', $uploader_id)->update(
+            [
+                'points' => $userPoint + 10,
+            ]
+        );
+
+        return redirect('select/'.$university_id.'/'.$department_id.'/'.$course_id.'/dashboard');
+    }
 
     public function UploadPost(Request $request, $university_id, $department_id, $course_id) {
         $uploader_id = Auth::user()->id;
@@ -143,7 +183,7 @@ class DashboardController extends Controller
             //         $attach->save();
             // }
         }
-        
+
         $file_path = storage_path('uploads') . '/'. $filename ;
         return Response::download($file_path);
     }
