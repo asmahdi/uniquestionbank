@@ -45,7 +45,9 @@
                         </div>
                 </form>
             @endif    
-    
+
+
+             
             @foreach ($posts as $post)
                 <div class="w-100 mdl-card mdl-shadow--2dp my-3">
                     <div class="mdl-card__title mdl-card--expand">
@@ -56,15 +58,16 @@
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
                         <a href="{{url('/'.$selected_university.'/'.$selected_department.'/'.$selected_course.'/dashboard/download/'.$post->url)}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect float-right">
-                            <b>View</b>
+                            <b>Download</b>
                         </a>
-
+                       
                         
-                        @if($post->uploader_id == Auth::user()->id)
+                        @if(Auth::check())
+                        @if($post->uploader_id == Auth::user()->id ) 
                             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect float-right">
                                 <b>It's your own file</b>
                             </a>
-
+                            
                         @else
                         <form action="{{url('/'.$selected_university.'/'.$selected_department.'/'.$selected_course.'/dashboard/upload/'.$post->id.'/translation')}}" method="post" enctype="multipart/form-data">
                             @csrf
@@ -114,16 +117,23 @@
                         </form>
 
                         @endif
+                        
 
-                        <div class="py-3 px-3">
+                        <!-- <div class="py-3 px-3">
                             <a href="#" class="btn btn-xs btn-warning like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }} </a>  |
                             <a href="#" class="btn btn-xs btn-danger like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 0 ? 'You dont like this post' : 'Dislike' : 'Dislike'  }} </a>
-                        </div>
+                        </div> -->
+
+                         @endif
                     </div>
+                   
                 </div>
             @endforeach 
+          
         </div>
 
+
+        @if (Auth::check())
         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
             <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -147,10 +157,12 @@
                             {{$cu_post->description}}
                         </div>
                         <div class="mdl-card__actions mdl-card--border">
-                            <a href="{{url('storage/postfiles/'.$cu_post->url)}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect float-right">
-                            <b>View</b>
+                            <a href="{{url('/'.$selected_university.'/'.$selected_department.'/'.$selected_course.'/dashboard/download/'.$post->url)}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect float-right">
+                            <b>Download</b>
                             </a>
-                            
+                            <a href="{{url('/select/'.$selected_university.'/'.$selected_department.'/'.$selected_course.'/dashboard/delete/'.$post->id)}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect float-right">
+                            <b>Delete</b>
+                            </a>
                         </div>
                         </div>
                     @endforeach 
@@ -183,6 +195,7 @@
             </div>
         </div>
     </div>
+    @endif
 
 </div>            
 
