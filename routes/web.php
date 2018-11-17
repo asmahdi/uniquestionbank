@@ -46,8 +46,10 @@ Route::get('/admin/deletecourse/{id}', 'AdminController@deleteCourse');
 
 Route::post('/{university_id?}/{department_id?}/{course_id?}/dashboard/upload','DashboardController@UploadPost');
 
+Route::post('select/{university_id?}/{department_id?}/{course_id?}/dashboard/delete/{post_id}','DashboardController@deletePost');
+
 #translate post upload
 Route::post('/{university_id?}/{department_id?}/{course_id?}/dashboard/upload/{post_id?}/translation','DashboardController@UploadTranslationPost');
 
 #route to download file
-Route::get('/{university_id?}/{department_id?}/{course_id?}/dashboard/download/{filename}', ['as' => 'getFile', 'uses' => 'DashboardController@get_file']);
+Route::get('/{university_id?}/{department_id?}/{course_id?}/dashboard/download/{filename}', ['as' => 'getFile', 'uses' => 'DashboardController@getFile']);
