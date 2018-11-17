@@ -23,6 +23,8 @@ Route::get('/select/{university_id?}/{department_id?}/{course_id?}', 'HomeContro
 
 Route::get('/select/{university_id?}/{department_id?}/{course_id?}/dashboard', 'DashboardController@index');
 
+Route::post('/like','PostController@postLikePost')->name('like');
+
 Route::get('/admin', 'AdminController@index');
 
 Route::get('/admin/university', 'AdminController@university');
@@ -44,3 +46,9 @@ Route::post('/admin/{university_id}/{department_id}/addcourse', 'AdminController
 Route::get('/admin/deletecourse/{id}', 'AdminController@deleteCourse');
 
 Route::post('/{university_id?}/{department_id?}/{course_id?}/dashboard/upload','DashboardController@UploadPost');
+
+#translate post upload
+Route::post('/{university_id?}/{department_id?}/{course_id?}/dashboard/upload/{post_id?}/translation','DashboardController@UploadTranslationPost');
+
+#route to download file
+Route::get('/{university_id?}/{department_id?}/{course_id?}/dashboard/download/{filename}', ['as' => 'getFile', 'uses' => 'DashboardController@get_file']);
