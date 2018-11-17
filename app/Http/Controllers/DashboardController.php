@@ -22,6 +22,7 @@ class DashboardController extends Controller
     {
         $posts =  DB::table('post')->where('course_id', '=', $course_id)->get();
         $users = DB::table('users')->where('points', '>', 0)->orderBy('points', 'desc')->limit(10)->get();
+        $universities = DB::table('university')->get();
         $uploader_id = Auth::user()->id;
         $uploader_posts = DB::table('post')->where('uploader_id', '=', $uploader_id)->get();
         $translated_posts = DB::table('translated_posts')->get();
@@ -30,6 +31,7 @@ class DashboardController extends Controller
             [
                 'users'=> $users, 
                 'posts'=> $posts,
+                'universities' => $universities,
                 'uploader_posts'=> $uploader_posts, 
                 'selected_university'=>$university_id,
                 'selected_department'=>$department_id, 

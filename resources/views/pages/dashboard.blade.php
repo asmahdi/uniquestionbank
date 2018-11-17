@@ -131,7 +131,7 @@
                     <div class="mdl-card mdl-shadow--2dp my-3 w-100">
                         <div class="mdl-textfield mdl-js-textfield w-100">
                             <h4 class="text-center mt-5">Username : {{ Auth::user()->name }}</h4>
-                            <h4 class="text-center mt-5">University : {{ Auth::user()->university }}</h4>
+                            <h4 class="text-center mt-5">University : {{ DB::table('university')->where('id', Auth::user()->university_id)->value('name') }}</h4>
                             <h4 class="text-center mt-5">Post Submitted : {{ DB::table('post')->where('uploader_id', Auth::user()->id)->count() }}</h4>
                             <h4 class="text-center mt-5">Points Earned : {{ Auth::user()->points }}</h4>
                         </div>

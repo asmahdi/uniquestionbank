@@ -53,17 +53,24 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="university" class="col-md-4 col-form-label text-md-right">{{ __('University') }}</label>
-
+                        <div class="row form-group{{ $errors->has('universities') ? ' has-error' : '' }}">
+                            <label for="university_id" class="col-md-4 col-form-label text-md-right">University</label>
                             <div class="col-md-6">
-                                <input id="university" type="text" class="form-control{{ $errors->has('university') ? ' is-invalid' : '' }}" name="university" value="{{ old('university') }}" required autofocus>
+                                <select class="form-control" name="university_id" id="university_id">
+                                    <option value="">Select a University</option>
 
-                                @if ($errors->has('university'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('university') }}</strong>
+                                    @foreach ($universities as $university)
+                                    <option value="{{ $university->id }}">{{ ucfirst($university->name) }}</option>
+                                    @endforeach
+
+                                </select>
+
+                                @if ($errors->has('universities'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('universities') }}</strong>
                                     </span>
                                 @endif
+
                             </div>
                         </div>
 

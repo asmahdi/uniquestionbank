@@ -16,7 +16,6 @@
 
 Auth::routes();
 
-
 Route::get('/', 'HomeController@index');
 
 Route::get('/select/{university_id?}/{department_id?}/{course_id?}', 'HomeController@select')->name('home');

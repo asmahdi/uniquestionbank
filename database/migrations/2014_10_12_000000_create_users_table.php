@@ -19,7 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('username', 100)->unique();
             $table->string('email',100)->unique();
             $table->string('password');
-            $table->string('university');
+            $table->integer('university_id')->default(0);
+            $table->foreign('university_id')->references('id')->on('university');
             $table->integer('registration_no')->nullable();
             $table->string('contact_no')->nullable();
             $table->integer('is_admin')->default(0);
