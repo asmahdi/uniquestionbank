@@ -12,10 +12,20 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::group([
+    'prefix' => 'public'
+    ], function () {
+        Route::get('/universities', 'API\APIController@getUniversities');
+        Route::post('/departments', 'API\APIController@getDepartments');
+        Route::post('/courses', 'API\APIController@getCourses');
+        Route::get('/resources','API\APIController@getResources');
+    });
 
-Route::get('/universities', 'API\APIController@getUniversities');
-Route::post('/departments', 'API\APIController@getDepartments');
-Route::post('/courses', 'API\APIController@getCourses');
+Route::group([
+    'middleware' => 'auth:api'
+        ], function () {
+            Route::get('/post', 'API\APIController@getUniversities');
+        });
 
 Route::group([
     'prefix' => 'auth'

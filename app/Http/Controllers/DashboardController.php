@@ -157,32 +157,9 @@ class DashboardController extends Controller
     **/
     public function get_file(Request $request, $filename)
     {
-        $destination_path = storage_path('uploads');
-        $file = $request->file('fileToUpload');
-
-      
-        $validator = Validator::make(
-            [
-                'fileToUpload' => $file,
-                'extension' => Str::lower($file->getClientOriginalExtension()),
-            ],
-            [
-                'fileToUpload' => 'required|max:100000',
-                'extension' => 'required|in:jpg,jpeg,bmp,png,doc,docx,zip,rar,pdf,rtf,xlsx,xls,txt, csv'
-            ]
-        );
-
-        if($validator->passes()){
-            $filename = $file->getClientOriginalName();
-            $upload_success = $file->move($destination_path, $filename);
-            // if ($upload_success) {
-            //         #if needed, save to your table
-            //         $attach = new attachments();
-            //         $attach->file_name = $filename;
-            //         $attach->mime = $file->getClientMimeType();
-            //         $attach->save();
-            // }
-        }
+        
+        $filename = $file->getClientOriginalName();
+    
 
         $file_path = storage_path('uploads') . '/'. $filename ;
         return Response::download($file_path);
