@@ -39,5 +39,6 @@ Route::group([
         Route::get('user', 'API\AuthController@user');
         Route::post('/postUpload','API\APIController@uploadPost');
         Route::post('/getfile','API\APIController@getFile');
+        Route::post('/delete','API\APIController@deletePost');
     });
 });

@@ -72,4 +72,12 @@ class APIController extends Controller
     {
         return response()->json(DB::table('users')->orderBy('points', 'desc')->limit(10)->get());
     }
+
+    public function deletePost(Request $request)
+    {
+        DB::table('post')->where('id', '=', $request->post_id)->delete();
+        return response()->json([
+            'message' => 'post is deleted'
+        ]);
+    }
 }

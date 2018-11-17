@@ -40,7 +40,6 @@ class DashboardController extends Controller
             [
                 'users'=> $users, 
                 'posts'=> $posts,
-                'universities' => $universities,
                 'uploader_posts'=> $uploader_posts, 
                 'selected_university'=>$university_id,
                 'selected_department'=>$department_id, 
